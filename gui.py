@@ -168,12 +168,24 @@ class GUI:
         """Get the theme value from a text file and return it.
             if the file is not created it will be created with theme 1"""
         if platform.system() == "Linux":
-            return 2
+            if os.path.exists("pdfc\\theme.txt"):
+                file = open("pdfc\\theme.txt", "r")
+                themeNum = int(file.readline())
+                file.close()
+            else:
+                if not os.path.exists("pdfc"):
+                    os.mkdir("pdfc")
+                file = open("pdfc\\theme.txt", "w")
+                file.write("1")
+                file.close()
+                themeNum = 1
+            return themeNum
         elif platform.system() == "Windows":
             # Get the theme number from a theme file
             if os.path.exists("c:/pdfc/theme.txt"):
                 file = open("c:/pdfc/theme.txt", "r")
                 themeNum = int(file.readline())
+                file.close()
             else:
                 #create the file with a default of theme
                 # one if it does not exist
@@ -466,7 +478,8 @@ class GUI:
     def changeThemeGui(self):
         """Displays the change theme window"""
         #get the theme number
-        themeNum = open("c:/pdfc/theme.txt", 'r')
+        themeDir = "c:/pdfc/theme.txt" if platform.system() == "Windows" else "pdfc\\theme.txt"
+        themeNum = open(themeDir, 'r')
         themeNum = int(themeNum.readline())
         self.themeNum = IntVar()
         self.themeNum.set(themeNum)
@@ -475,7 +488,7 @@ class GUI:
         self.themeWind.title("Themes")
         self.themeWind.geometry("550x350")
         self.themeWind.resizable(0,0)
-        self.themeWind.iconbitmap("i.ico")
+        # self.themeWind.iconbitmap("i.ico")
 
         #the label frame
         frame1 = Frame(self.themeWind, bg = "white")
@@ -493,8 +506,8 @@ class GUI:
         frame2inner1.pack(side = LEFT, fill = X, expand = 1)
         frame2inner2.pack(side = LEFT, fill = X, expand = 1)
 
-        themeOneImg = PhotoImage(file = "img/theme1s.png")
-        themeTwoImg = PhotoImage(file = "img/theme2s.png")
+        themeOneImg = PhotoImage(file = os.path.join("img", "theme1s.png"))
+        themeTwoImg = PhotoImage(file = os.path.join("img", "theme2s.png"))
 
         radioBtnTheme1 = Radiobutton(frame2inner1, text = "Theme One",
                                      anchor = "w", variable = self.themeNum,
@@ -530,7 +543,8 @@ class GUI:
 
     def saveTheme(self):
         """Save the theme number in a file"""
-        fh = open("c:/pdfc/theme.txt", 'w')
+        themeFile = "c:/pdfc/theme.txt" if platform.system() == "Windows" else "pdfc\\theme.txt"
+        fh = open(themeFile, 'w')
         fh.write(str(self.themeNum.get()))
         fh.close()
         tkinter.messagebox.showinfo("Theme Changes",
