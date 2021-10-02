@@ -13,5 +13,5 @@ The software allows you to work with pages of a PDF file:
 - Swap pages in a PDF file.
 - Reverse pages in a PDF file.
 - Seperate a file into its individual pages.
-
-You can go to the PDFC website here: [https://siyabongak.github.io/pdfc-website/](https://siyabongak.github.io/pdfc-website/)
+<!--
+You can go to the PDFC website here: [https://siyabongak.github.io/pdfc-website/](https://siyabongak.github.io/pdfc-website/) -->
