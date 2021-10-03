@@ -1,10 +1,63 @@
 import tkinter.messagebox
 import PyPDF2
+import fitz
 import os
 import time
 
 __author__ = "Siyabonga Konile";
 __authorsEmail__ = "siyabongakonile@gmail.com";
+
+class PDF:
+    def __init__(self, filename):
+        """Open the given file"""
+        if filename != "":
+            if os.path.exists(filename):
+                self.filename = os.abspath(filename)
+                self.doc = fitz.open(filename)
+            else:
+                raise RuntimeError("Given file path does not exist.")
+
+    def combine(self, otherFile, outputDir, filename):
+        """This function combines the given PDFs 
+        and output that PDF in the given Dir"""
+        pass
+
+    def delPages(self, listOfPages):
+        pass
+
+    def swapPages(self, page1, page2):
+        pass
+
+    def reversePages(self):
+        pass
+
+    def separatePages(self):
+        pass
+
+    def insertPDF(self, pageNum, filename, outputFilename):
+        """Inserts a PDF file between the pages of another PDF file
+
+        param pageNum   - THe page number that the file 
+                            will be inserted after.
+        param filename     - The path of the file to insert to the current one.
+        param outputFilename     - The path or name of the output file."""
+        if pageNum > self.doc.page_count():
+            pageNum = self.doc.page_count()
+
+        if os.path.exists(filename):
+            raise RuntimeError("File path does not exist.")
+        
+        if self.filename == os.abspath(filename):
+            doc2 = self.doc
+        else:
+            doc2 = fitz.open(filename)
+        
+        
+
+
+
+i = PDF("/home/konil-usb/Documents/test/test.pdf")
+
 
 def combine(pdfFiles, outputDir, filename):
     """This function combines the given PDFs 
