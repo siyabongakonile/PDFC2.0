@@ -7,8 +7,8 @@ import time, threading
 from threading import Thread
 import platform
 
-__author__ = "Siyabonga Konile";
-__authorsEmail__ = "siyabongakonile@gmail.com";
+__author__ = "Siyabonga Konile"
+__authorsEmail__ = "siyabongakonile@gmail.com"
 
 # Thread class for the thread counter
 class ThreadCounter(Thread):
@@ -48,7 +48,7 @@ class GUI:
         # self.window.iconbitmap("i.ico")
 
         if theme == 1:
-            self.window.geometry("600x300")
+            self.window.geometry("700x400")
             self.window.resizable(0,0)
             #the side buttons
             leftSideBarFrame = Frame(self.window, bg = "white")
@@ -98,6 +98,18 @@ class GUI:
                           relief = GROOVE,
                           command = self.changeThemeGui)
             btn8 = Button(leftSideBarFrame,
+                          text = "PDF page to Image",
+                          bg = "white",
+                          cursor = "hand2",
+                          relief = GROOVE,
+                          command = self.pageToImageGUI)
+            btn9 = Button(leftSideBarFrame,
+                          text = "Image To Page",
+                          bg = "white",
+                          cursor = "hand2",
+                          relief = GROOVE,
+                          command = self.imageToPageGUI)
+            btn10 = Button(leftSideBarFrame,
                           text = "About PDFC",
                           bg = "white",
                           cursor = "hand2",
@@ -113,6 +125,8 @@ class GUI:
             btn6.pack(side = TOP, fill = BOTH, expand = 1, ipadx = 30)
             btn7.pack(side = TOP, fill = BOTH, expand = 1, ipadx = 30)
             btn8.pack(side = TOP, fill = BOTH, expand = 1, ipadx = 30)
+            btn9.pack(side = TOP, fill = BOTH, expand = 1, ipadx = 30)
+            btn10.pack(side = TOP, fill = BOTH, expand = 1, ipadx = 30)
 
             #the contents frame
             self.defaultOption()
@@ -123,7 +137,8 @@ class GUI:
             #add the top menu
             menubar = Menu(self.window, bg = "white")
             self.window.config(menu = menubar)
-            #the combine sub menu
+
+            # Combine Menu Item
             combineMenu = Menu(menubar, tearoff = 0)
             menubar.add_cascade(label = "Combine", 
                                 menu = combineMenu)
@@ -132,6 +147,7 @@ class GUI:
             combineMenu.add_command(label = "Insert in another", 
                                     command = self.insertGui)
 
+            # Edit Menu Item
             editMenu = Menu(menubar, tearoff = 0)
             menubar.add_cascade(label  = "Edit", menu = editMenu)
             editMenu.add_command(label = "Delete Pages", 
@@ -143,8 +159,17 @@ class GUI:
             editMenu.add_command(label = "Separate Pages", 
                                 command = self.sepPagesGui)
 
+            # Image Menu Item
+            imageMenu = Menu(menubar, tearoff = 0)
+            menubar.add_cascade(label = "Image", menu = imageMenu)
+            imageMenu.add_command(label = "Page To Image", command = self.pageToImageGUI)
+            imageMenu.add_command(label = "Image To Page", command = self.imageToPageGUI)
+
+            # Theme Menu Item
             menubar.add_command(label = "Themes", 
                                 command = self.changeThemeGui)
+
+            # About Menu Item
             menubar.add_command(label = "About PDFC", 
                                 command = self.aboutGui)
 
@@ -557,7 +582,7 @@ class GUI:
         aboutRoot.title("About PDFC")
         aboutRoot.geometry("350x400")
         aboutRoot.resizable(0,0)
-        aboutRoot.iconbitmap("i.ico")
+        # aboutRoot.iconbitmap("i.ico")
 
         #Add menu bar
         menubar = Menu(aboutRoot, tearoff = 0, bg = "white")
@@ -581,7 +606,7 @@ class GUI:
         text = "PDFC is a free simple PDF page manipulator used for deleting, adding, swaping pages and combining PDF files.\n" 
         aboutText.insert(END, text, "desc")
         aboutText.insert(END, "\n")
-        aboutText.insert(END, "Version: 1.0.2\nCreator: Siyabonga Konile\nEmail: siyabongakonile@gmail.com\n", "details")
+        aboutText.insert(END, "Version: 2.0 \nCreator: Siyabonga Konile\nEmail: siyabongakonile@gmail.com\n", "details")
         aboutText.tag_config("desc", font = "sans-serif 12")
         aboutText.config(state="disabled");
         closeAboutBtn = Button(bottomFrame, text = "Close", fg = "#2e2e2e", font = "sans-serif 12", command = aboutRoot.destroy)
@@ -782,5 +807,17 @@ class GUI:
             tkinter.messagebox.showerror("Type Error",
                                          "You did not select a PDF file, Please select one.")
             self.setFile1()
+
+    def pageToImageGUI(self):
+        pass
+
+    def pageToSVG(self):
+        pass
+
+    def pageToPNG(self):
+        pass
+
+    def imageToPageGUI(self):
+        pass
 
 GUI()
