@@ -1,6 +1,8 @@
 # PDFC
 This is a code base of my first software that i created using Python and PyPDF2 but now it is being modified to use PyMuPDF instead
 
+You can visit the code base for the original software here [https://github.com/siyabongakonile/PDFC](https://github.com/siyabongakonile/PDFC).
+
 ## Running the program
 - You need to install PyMuPDF first use this command in the terminal/command prompt `pip install PyMuPDF`.
 - After installing the package you will be able to run the software.
