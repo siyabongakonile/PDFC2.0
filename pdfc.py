@@ -4,15 +4,15 @@ import fitz
 import os
 import time
 
-__author__ = "Siyabonga Konile";
-__authorsEmail__ = "siyabongakonile@gmail.com";
+__author__ = "Siyabonga Konile"
+__authorsEmail__ = "siyabongakonile@gmail.com"
 
 class PDF:
     def __init__(self, filename):
         """Open the given file"""
         if filename != "":
             if os.path.exists(filename):
-                self.filename = os.abspath(filename)
+                self.filename = os.path.abspath(filename)
                 self.doc = fitz.open(filename)
             else:
                 raise RuntimeError("Given file path does not exist.")
@@ -51,12 +51,40 @@ class PDF:
             doc2 = self.doc
         else:
             doc2 = fitz.open(filename)
+
+    def pageToSVG(self, pageNum, outputImageDir = "", outputImageName = ""):
+        """Converts a page into an SVG image"""
+        pageNum = pageNum - 1
+        svgImage = self.doc[pageNum].get_svg_image()
         
-        
+        if outputImageDir == "": 
+            outputImageDir = os.path.dirname(self.filename)
+        if outputImageName == "":
+            outputImageName = os.path.basename(self.filename) + "_page" + str(pageNum + 1) + ".svg"
+        else:
+            if not outputImageName.lower().endswith(".svg"):
+                outputImageName = outputImageName + ".svg"
+
+        try:
+            newSVG = open(os.path.join(outputImageDir, outputImageName), "w")
+            newSVG.write(svgImage)
+            newSVG.close()
+        except PermissionError:
+            tkinter.messagebox.showerror("Permission Error", 
+                "It seems like the program does not have access to write on this folder.")
+        except OSError:
+            tkinter.messagebox.showerror("Operating System Error", 
+                "This might be because the disk is full.")
+        except:
+            tkinter.messagebox.showerror("Error", 
+                "Something went wrong while trying to create a file.")
 
 
 
-i = PDF("/home/konil-usb/Documents/test/test.pdf")
+
+    def pageToPNG(pageNum):
+        """Converts a page into a PNG image"""
+        pass
 
 
 def combine(pdfFiles, outputDir, filename):
