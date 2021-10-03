@@ -7,11 +7,11 @@ This is a code base of my first software that in created using Python and PyMuPD
 
 ## What ca you do with the software?
 The software allows you to work with pages of a PDF file:
-- You can combine two PDF files back to back.
-- Insert a PDF file in between the pages of another.
-- Detele the pages in a PDF file.
-- Swap pages in a PDF file.
-- Reverse pages in a PDF file.
-- <strike>Seperate a file into its individual pages.<strike>
+- <strike>You can combine two PDF files back to back.</strike>
+- <strike>Insert a PDF file in between the pages of another.</strike>
+- <strike>Detele the pages in a PDF file.</strike>
+- <strike>Swap pages in a PDF file.</strike>
+- <strike>Reverse pages in a PDF file.</strike>
+- <strike>Seperate a file into its individual pages.</strike>
 <!--
 You can go to the PDFC website here: [https://siyabongak.github.io/pdfc-website/](https://siyabongak.github.io/pdfc-website/) -->
