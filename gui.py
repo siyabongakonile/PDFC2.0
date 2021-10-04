@@ -809,15 +809,48 @@ class GUI:
             self.setFile1()
 
     def pageToImageGUI(self):
+        """Display the GUI for changing a PDF page to an image"""
+        self.emptyFrame()
+        self.file1 = StringVar()
+        self.comboboxValue = StringVar()
+
+        comboboxOptions = ["svg", "png"]
+
+        frame = Frame(self.contFrame, bg = "white")
+        headerLabel = Label(frame, text = "PDF Page to Image", bg = "white", fg = "#2e2e2e", font = "arial 18")
+        frame0 = Frame(frame, bg = "white")
+        frame1 = Frame(frame, bg = "white")
+        label1 = Label(frame0, bg = "white", text = "Select the PDF file to convert: ", font = "sans-serif 11")
+        entry  = Entry(frame1, bg = "white", textvariable = self.file1)
+        browseBtn = Button(frame1, text = "Browse", command = self.setFile1)
+        frame2 = Frame(frame, bg = "white")
+        sepBtn = Button(frame2, text = "Convert File", command = self.sepPages)
+        
+        frame.pack(side = TOP, fill = BOTH, expand = 1)
+        headerLabel.pack(side = TOP, fill = X, pady = 10)
+        frame0.pack(side = TOP, fill = X)
+        label1.pack(side = LEFT, fill = X, padx = 16, pady = 2)
+        frame1.pack(side = TOP, fill = BOTH, padx = 10)
+        entry.pack(side = LEFT, fill = X, expand = 1, ipady = 5, ipadx = 10, padx = 5)
+        browseBtn.pack(side = LEFT, ipady = 2, ipadx = 10, padx = 5)
+        frame2.pack(side = TOP, fill = X)
+        sepBtn.pack(side = RIGHT, padx = 15, pady = 15, ipadx = 15, ipady = 2)
+
+    def imageTypeSet(self, value):
+        """Set the value of the combobox tkinter value holder"""
         pass
 
+
     def pageToSVG(self):
+        """Convert a page to an SVG image"""
         pass
 
     def pageToPNG(self):
+        """Covert a page to a PNG image"""
         pass
 
     def imageToPageGUI(self):
+        """Display the GUI for converting an image to a PDF page"""
         pass
 
 GUI()

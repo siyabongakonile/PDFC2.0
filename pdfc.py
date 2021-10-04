@@ -321,4 +321,4 @@ def insert(file1, file2, pageNum, outputFilename):
         pdfFile2.close()
     newFile.close()
     tkinter.messagebox.showinfo("Done",
-                            "The PDF file was successfully inserted.")
+        "The PDF file was successfully inserted.")
