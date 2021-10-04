@@ -7,6 +7,7 @@ import time
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
+__lastModified__ = "04 Oct 2021 21:48"
 
 class PDF:
     def __init__(self, filename):
