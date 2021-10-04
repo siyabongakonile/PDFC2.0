@@ -1,3 +1,4 @@
+from posixpath import basename
 import tkinter.messagebox
 import PyPDF2
 import fitz
@@ -52,23 +53,38 @@ class PDF:
         else:
             doc2 = fitz.open(filename)
 
-    def pageToSVG(self, pageNum, outputImageDir = "", outputImageName = ""):
-        """Converts a page into an SVG image"""
+    def pageToImage(self, pageNum, imageType, outputImageDir = "", outputImageName = ""):
+        """Converts a page into an SVG/PNG image"""
         pageNum = pageNum - 1
-        svgImage = self.doc[pageNum].get_svg_image()
+        basename = os.path.basename(self.filename)
+
+        if imageType == "svg":
+            newImage = self.doc[pageNum].get_svg_image()
+        else:
+            newImage = self.doc[pageNum].get_page_pixmap()
         
         if outputImageDir == "": 
             outputImageDir = os.path.dirname(self.filename)
         if outputImageName == "":
-            outputImageName = os.path.basename(self.filename) + "_page" + str(pageNum + 1) + ".svg"
+            if imageType == "svg":
+                outputImageName = basename + "_page" + str(pageNum + 1) + ".svg"
+            else:
+                outputImageName = basename + "_page" + str(pageNum + 1) + ".png"
         else:
-            if not outputImageName.lower().endswith(".svg"):
-                outputImageName = outputImageName + ".svg"
+            if not outputImageName.lower().endswith(".svg") or not outputImageName.lower().endswith(".png"):
+                if imageType == "svg":
+                    outputImageName = outputImageName + ".svg"
+                else:
+                    outputImageName = outputImageName + ".png"
 
         try:
-            newSVG = open(os.path.join(outputImageDir, outputImageName), "w")
-            newSVG.write(svgImage)
-            newSVG.close()
+            if imageType == "svg":
+                newSVG = open(os.path.join(outputImageDir, outputImageName), "w")
+                newSVG.write(newImage)
+                newSVG.close()
+            else:
+                newPNG = self.doc.get_page_pixmap(pageNum)
+                newPNG.save(os.path.join(outputImageDir, outputImageName))
         except PermissionError:
             tkinter.messagebox.showerror("Permission Error", 
                 "It seems like the program does not have access to write on this folder.")
@@ -79,12 +95,13 @@ class PDF:
             tkinter.messagebox.showerror("Error", 
                 "Something went wrong while trying to create a file.")
 
+    def pageToSVG(self, pageNum, outputImageDir = "", outputImageName = ""):
+        """Converts a page into an SVG image"""
+        self.pageToImage(pageNum, "svg", outputImageDir, outputImageName)
 
-
-
-    def pageToPNG(pageNum):
+    def pageToPNG(self, pageNum, outputImageDir = "", outputImageName = ""):
         """Converts a page into a PNG image"""
-        pass
+        self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
 
 
 def combine(pdfFiles, outputDir, filename):
