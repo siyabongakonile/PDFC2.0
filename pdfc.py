@@ -61,8 +61,6 @@ class PDF:
 
         if imageType == "svg":
             newImage = self.doc[pageNum].get_svg_image()
-        else:
-            newImage = self.doc[pageNum].get_page_pixmap()
         
         if outputImageDir == "": 
             outputImageDir = os.path.dirname(self.filename)
@@ -96,11 +94,11 @@ class PDF:
             tkinter.messagebox.showerror("Error", 
                 "Something went wrong while trying to create a file.")
 
-    def pageToSVG(self, pageNum, outputImageDir = "", outputImageName = ""):
+    def pageToSVG(self, pageNum = 1, outputImageDir = "", outputImageName = ""):
         """Converts a page into an SVG image"""
         self.pageToImage(pageNum, "svg", outputImageDir, outputImageName)
 
-    def pageToPNG(self, pageNum, outputImageDir = "", outputImageName = ""):
+    def pageToPNG(self, pageNum = 1, outputImageDir = "", outputImageName = ""):
         """Converts a page into a PNG image"""
         self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
 

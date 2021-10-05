@@ -812,9 +812,8 @@ class GUI:
         """Display the GUI for changing a PDF page to an image"""
         self.emptyFrame()
         self.file1 = StringVar()
-        self.comboboxValue = StringVar()
-
-        comboboxOptions = ["svg", "png"]
+        self.imageType = StringVar()
+        self.imageType.set("svg")
 
         frame = Frame(self.contFrame, bg = "white")
         headerLabel = Label(frame, text = "PDF Page to Image", bg = "white", fg = "#2e2e2e", font = "arial 18")
@@ -824,7 +823,11 @@ class GUI:
         entry  = Entry(frame1, bg = "white", textvariable = self.file1)
         browseBtn = Button(frame1, text = "Browse", command = self.setFile1)
         frame2 = Frame(frame, bg = "white")
-        sepBtn = Button(frame2, text = "Convert File", command = self.sepPages)
+        sepBtn = Button(frame2, text = "Convert File", command = self.convertPage)
+
+        frame3 = Frame(frame, bg = "white")
+        imageTypeOne = Radiobutton(frame3, bg = "white", text = "SVG", variable = self.imageType, value = "svg")
+        imageTypeTwo = Radiobutton(frame3, bg = "white", text = "PNG", variable = self.imageType, value = "png")
         
         frame.pack(side = TOP, fill = BOTH, expand = 1)
         headerLabel.pack(side = TOP, fill = X, pady = 10)
@@ -833,24 +836,27 @@ class GUI:
         frame1.pack(side = TOP, fill = BOTH, padx = 10)
         entry.pack(side = LEFT, fill = X, expand = 1, ipady = 5, ipadx = 10, padx = 5)
         browseBtn.pack(side = LEFT, ipady = 2, ipadx = 10, padx = 5)
+        imageTypeOne.pack(side = LEFT, fill = X, expand = 1)
+        imageTypeTwo.pack(side = LEFT, fill = X, expand = 1)
+        frame3.pack(side = TOP, fill = X, ipady = 15)
         frame2.pack(side = TOP, fill = X)
-        sepBtn.pack(side = RIGHT, padx = 15, pady = 15, ipadx = 15, ipady = 2)
+        sepBtn.pack(side = RIGHT, padx = 15, pady = 10, ipadx = 15, ipady = 0)
 
-    def imageTypeSet(self, value):
-        """Set the value of the combobox tkinter value holder"""
-        pass
-
+    def convertPage(self):
+        """Convert the page depending on the selected type"""
+        if self.imageType.get() == "svg":
+            self.pageToSVG()
+        else:
+            self.pageToPNG()
 
     def pageToSVG(self):
         """Convert a page to an SVG image"""
-        pass
+        doc = pc.PDF(self.file1.get())
+        doc.pageToSVG()
 
     def pageToPNG(self):
         """Covert a page to a PNG image"""
-        pass
-
-    def imageToPageGUI(self):
-        """Display the GUI for converting an image to a PDF page"""
-        pass
+        doc = pc.PDF(self.file1.get())
+        doc.pageToPNG()
 
 GUI()
