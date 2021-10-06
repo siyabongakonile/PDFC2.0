@@ -102,6 +102,8 @@ class PDF:
         """Converts a page into a PNG image"""
         self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
 
+    def imageToPage(self, filename = "", outputImageDir = "", outputImageName = ""):
+        pass
 
 def combine(pdfFiles, outputDir, filename):
     """This function combines the given PDFs 

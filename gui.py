@@ -859,4 +859,35 @@ class GUI:
         doc = pc.PDF(self.file1.get())
         doc.pageToPNG()
 
+    def imageToPageGUI(self):
+        """Display the GUI for converting an image to a PDF page"""
+        self.emptyFrame()
+        self.file1 = StringVar()
+        self.imageType = StringVar()
+        self.imageType.set("svg")
+
+        frame = Frame(self.contFrame, bg = "white")
+        headerLabel = Label(frame, text = "Image to PDF Document", bg = "white", fg = "#2e2e2e", font = "arial 18")
+        frame0 = Frame(frame, bg = "white")
+        frame1 = Frame(frame, bg = "white")
+        label1 = Label(frame0, bg = "white", text = "Select the Image file to convert: ", font = "sans-serif 11")
+        entry  = Entry(frame1, bg = "white", textvariable = self.file1)
+        browseBtn = Button(frame1, text = "Browse", command = self.setFile1)
+        frame2 = Frame(frame, bg = "white")
+        sepBtn = Button(frame2, text = "Convert File", command = self.convertImage)
+        
+        frame.pack(side = TOP, fill = BOTH, expand = 1)
+        headerLabel.pack(side = TOP, fill = X, pady = 10)
+        frame0.pack(side = TOP, fill = X)
+        label1.pack(side = LEFT, fill = X, padx = 16, pady = 2)
+        frame1.pack(side = TOP, fill = BOTH, padx = 10)
+        entry.pack(side = LEFT, fill = X, expand = 1, ipady = 5, ipadx = 10, padx = 5)
+        browseBtn.pack(side = LEFT, ipady = 2, ipadx = 10, padx = 5)
+        frame2.pack(side = TOP, fill = X)
+        sepBtn.pack(side = RIGHT, padx = 15, pady = 10, ipadx = 15, ipady = 0)
+
+    def convertImage(self):
+        """Check if the image exist and convert it to a PDF Document"""
+        print("convert Image to PDF")
+
 GUI()
