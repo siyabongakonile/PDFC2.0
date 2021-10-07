@@ -93,14 +93,15 @@ class PDF:
         except:
             tkinter.messagebox.showerror("Error", 
                 "Something went wrong while trying to create a file.")
+        return True
 
     def pageToSVG(self, pageNum = 1, outputImageDir = "", outputImageName = ""):
         """Converts a page into an SVG image"""
-        self.pageToImage(pageNum, "svg", outputImageDir, outputImageName)
+        return self.pageToImage(pageNum, "svg", outputImageDir, outputImageName)
 
     def pageToPNG(self, pageNum = 1, outputImageDir = "", outputImageName = ""):
         """Converts a page into a PNG image"""
-        self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
+        return self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
 
     def imageToPage(self, filename = "", outputImageDir = "", outputImageName = ""):
         pass
