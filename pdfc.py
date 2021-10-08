@@ -25,15 +25,32 @@ class PDF:
         pass
 
     def delPages(self, listOfPages):
+        """Delete a given number of pages"""
         pass
 
     def swapPages(self, page1, page2):
+        """Swaps two pages in a PDF file.
+        
+        Parameters
+        ----------
+        page1: int
+            The page number of the first page to be swapped
+        page2: int
+            The page number of the second page to be swapped
+
+        Returns
+        -------
+        Boolean: 
+            True when the pages where successfully swapped and False otherwise
+        """
         pass
 
     def reversePages(self):
+        """Reverses the whole documents"""
         pass
 
     def separatePages(self):
+        """Separates the whole document to single PDF pages"""
         pass
 
     def insertPDF(self, pageNum, filename, outputFilename):
