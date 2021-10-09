@@ -20,8 +20,25 @@ class PDF:
                 raise RuntimeError("Given file path does not exist.")
 
     def combine(self, otherFile, outputDir, filename) -> bool:
-        """This function combines the given PDFs 
-        and output that PDF in the given Dir"""
+        """Combines the given PDFs and output that PDF in the given Dir
+        
+        Creates a new file that will have the content of the two chosen
+        files in a chosen directory with a user given name.
+
+        Parameters
+        ----------
+        otherFile: str
+            The second file that will be embed on the current file.
+        outputDir: str
+            The directory to the output file will be created in.
+        filename: str
+            The filename of the new file.
+
+        Return
+        ------
+        Boolean:
+            True the file was successfully created or False otherwise
+        """
         pass
 
     def delPages(self, listOfPages) -> bool:
@@ -125,11 +142,33 @@ class PDF:
         return True
 
     def pageToSVG(self, pageNum = 1, outputImageDir = "", outputImageName = "") -> bool:
-        """Converts a page into an SVG image"""
+        """Converts a page into an SVG image
+        
+        Parameters
+        ----------
+        pageNum: int
+            The page number to convert to an image.
+
+        Return 
+        ------
+        Boolean:
+            True if the image was selected without an error or False otherwise.
+        """
         return self.pageToImage(pageNum, "svg", outputImageDir, outputImageName)
 
     def pageToPNG(self, pageNum = 1, outputImageDir = "", outputImageName = "") -> bool:
-        """Converts a page into a PNG image"""
+        """Converts a page into a PNG image
+        
+        Parameters
+        ----------
+        pageNum: int
+            The page number to convert to an image.
+
+        Return 
+        ------
+        Boolean:
+            True if the image was selected without an error or False otherwise.
+        """
         return self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
 
     def imageToPage(self, filename = "", outputImageDir = "", outputImageName = "") -> bool:
