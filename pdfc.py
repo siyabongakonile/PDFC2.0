@@ -46,7 +46,18 @@ class PDF:
         pass
 
     def reversePages(self):
-        """Reverses the whole documents"""
+        """Reverses the whole documents
+        
+        Change the order of all the pages and the first becomes the
+        last page all the way to having the last become the first page.
+        This method creates a new PDF with reversed pages.
+
+        Return
+        ------
+        Boolean:
+            True if the PDF file with the reversed pages was created 
+            successfully and False otherwise.
+        """
         pass
 
     def separatePages(self):
