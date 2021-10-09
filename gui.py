@@ -48,16 +48,23 @@ class GUI:
         theme = self.getTheme()
         self.themeDisp(theme)
 
-    def themeDisp(self, theme):
-        """Displays the chosen GUI theme
+    def isOSWindows(self) -> bool:
+        """Checks if the operating system is Windows or not
         
-    
+        Return 
+        ------
+        Boolean:
+            True if the Operating System is Windows or False otherwise.
         """
+        return platform.system() == "Windows"
+
+    def themeDisp(self, theme):
+        """Displays the chosen GUI theme"""
         #create the main window the set it to
         self.window = Tk()
         self.window.title("PDFC")
         self.window.protocol('WM_DELETE_WINDOW', self.quitApp)
-        # self.window.iconbitmap("i.ico")
+        if self.isOSWindows(): self.window.iconbitmap("i.ico")
 
         if theme == 1:
             self.window.geometry("700x400")
@@ -525,7 +532,7 @@ class GUI:
         self.themeWind.title("Themes")
         self.themeWind.geometry("550x350")
         self.themeWind.resizable(0,0)
-        # self.themeWind.iconbitmap("i.ico")
+        if self.isOSWindows(): self.themeWind.iconbitmap("i.ico")
 
         #the label frame
         frame1 = Frame(self.themeWind, bg = "white")
@@ -594,7 +601,7 @@ class GUI:
         aboutRoot.title("About PDFC")
         aboutRoot.geometry("350x400")
         aboutRoot.resizable(0,0)
-        # aboutRoot.iconbitmap("i.ico")
+        if self.isOSWindows(): aboutRoot.iconbitmap("i.ico")
 
         #Add menu bar
         menubar = Menu(aboutRoot, tearoff = 0, bg = "white")
