@@ -85,10 +85,20 @@ class PDF:
     def insertPDF(self, pageNum, filename, outputFilename) -> bool:
         """Inserts a PDF file between the pages of another PDF file
 
-        param pageNum   - THe page number that the file 
-                            will be inserted after.
-        param filename     - The path of the file to insert to the current one.
-        param outputFilename     - The path or name of the output file."""
+        Parameters
+        ----------
+        pageNum: int
+            The page number that the file will be inserted after.
+        filename: str
+            The path of the file to insert to the current one.
+        outputFilename: str
+            The path or name of the output file.
+
+        Return
+        ------
+        Boolean:
+            True if the file was created without an error or False otherwise.
+        """
         if pageNum > self.doc.page_count():
             pageNum = self.doc.page_count()
 
