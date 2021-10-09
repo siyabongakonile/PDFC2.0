@@ -19,16 +19,16 @@ class PDF:
             else:
                 raise RuntimeError("Given file path does not exist.")
 
-    def combine(self, otherFile, outputDir, filename):
+    def combine(self, otherFile, outputDir, filename) -> bool:
         """This function combines the given PDFs 
         and output that PDF in the given Dir"""
         pass
 
-    def delPages(self, listOfPages):
+    def delPages(self, listOfPages) -> bool:
         """Delete a given number of pages"""
         pass
 
-    def swapPages(self, page1, page2):
+    def swapPages(self, page1, page2) -> bool:
         """Swaps two pages in a PDF file.
         
         Parameters
@@ -45,7 +45,7 @@ class PDF:
         """
         pass
 
-    def reversePages(self):
+    def reversePages(self) -> bool:
         """Reverses the whole documents
         
         Change the order of all the pages and the first becomes the
@@ -60,11 +60,11 @@ class PDF:
         """
         pass
 
-    def separatePages(self):
+    def separatePages(self) -> bool:
         """Separates the whole document to single PDF pages"""
         pass
 
-    def insertPDF(self, pageNum, filename, outputFilename):
+    def insertPDF(self, pageNum, filename, outputFilename) -> bool:
         """Inserts a PDF file between the pages of another PDF file
 
         param pageNum   - THe page number that the file 
@@ -82,7 +82,7 @@ class PDF:
         else:
             doc2 = fitz.open(filename)
 
-    def pageToImage(self, pageNum, imageType, outputImageDir = "", outputImageName = ""):
+    def pageToImage(self, pageNum, imageType, outputImageDir = "", outputImageName = "") -> bool:
         """Converts a page into an SVG/PNG image"""
         pageNum = pageNum - 1
         basename = os.path.basename(self.filename)
@@ -123,15 +123,15 @@ class PDF:
                 "Something went wrong while trying to create a file.")
         return True
 
-    def pageToSVG(self, pageNum = 1, outputImageDir = "", outputImageName = ""):
+    def pageToSVG(self, pageNum = 1, outputImageDir = "", outputImageName = "") -> bool:
         """Converts a page into an SVG image"""
         return self.pageToImage(pageNum, "svg", outputImageDir, outputImageName)
 
-    def pageToPNG(self, pageNum = 1, outputImageDir = "", outputImageName = ""):
+    def pageToPNG(self, pageNum = 1, outputImageDir = "", outputImageName = "") -> bool:
         """Converts a page into a PNG image"""
         return self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
 
-    def imageToPage(self, filename = "", outputImageDir = "", outputImageName = ""):
+    def imageToPage(self, filename = "", outputImageDir = "", outputImageName = "") -> bool:
         pass
 
 def combine(pdfFiles, outputDir, filename):
