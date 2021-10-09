@@ -148,6 +148,10 @@ class PDF:
         ----------
         pageNum: int
             The page number to convert to an image.
+        outputImageDir: str
+            The directory to create the output file in.
+        outputImageName: str
+            The name of the output file.
 
         Return 
         ------
@@ -163,6 +167,10 @@ class PDF:
         ----------
         pageNum: int
             The page number to convert to an image.
+        outputImageDir: str
+            The directory to create the output file in.
+        outputImageName: str
+            The name of the output file.
 
         Return 
         ------
