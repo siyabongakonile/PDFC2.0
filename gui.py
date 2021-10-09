@@ -912,6 +912,34 @@ class GUI:
 
     def convertImage(self):
         """Check if the image exist and convert it to a PDF Document"""
+        # imageTypes = [
+        #     "svg",
+        #     "png",
+        #     "rgb",
+        #     "gif",
+        #     "pbm",
+        #     "pgm",
+        #     "ppm",
+        #     "tiff",
+        #     "tiff",
+        #     "xbm",
+        #     "jpeg",
+        #     "bmp",
+        #     "webp",
+        #     "exr"
+        # ]
+
+        if self.file1.get() == "":
+            tkinter.messagebox.showerror("No Selected file", 
+                "No image was selected. Please select or enter the path to the image you want to convert.")
+            return
+            
+        if not os.path.exists(self.file1.get()):
+            tkinter.messagebox.showerror("File Path Error", 
+                "The enter or selected file path does not exist. Please select/enter a valid path")
+            return
+        
+
         print("convert Image to PDF")
 
 GUI()
