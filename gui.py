@@ -35,12 +35,24 @@ class ThreadCounter(Thread):
 
 class GUI:
     def __init__(self, theme = 1):
-        """Get the theme number and display the theme"""
+        """Get the theme number and display the theme
+        
+        Get GUI theme and Display the GUI
+
+        Parameters
+        ----------
+        theme:
+            The software has two different types of themes and
+            this variable represents the theme number
+        """
         theme = self.getTheme()
         self.themeDisp(theme)
 
     def themeDisp(self, theme):
-        """Displays the chosen theme"""
+        """Displays the chosen GUI theme
+        
+    
+        """
         #create the main window the set it to
         self.window = Tk()
         self.window.title("PDFC")

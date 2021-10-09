@@ -61,7 +61,8 @@ class PDF:
         pass
 
     def separatePages(self) -> bool:
-        """Separates the whole document to single PDF pages"""
+        """Separates the whole document to single PDF pages
+        """
         pass
 
     def insertPDF(self, pageNum, filename, outputFilename) -> bool:

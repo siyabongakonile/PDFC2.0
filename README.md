@@ -18,5 +18,3 @@ The software allows you to work with pages of a PDF file:
 - <strike>Create SVG image from a PDF page.</strike>
 - <strike>Create PNG image from a PDF page.</strike>
 - <strike>Create a PDF file from an image.<strike>
-<!--
-You can go to the PDFC website here: [https://siyabongak.github.io/pdfc-website/](https://siyabongak.github.io/pdfc-website/) -->
