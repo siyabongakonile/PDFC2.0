@@ -669,9 +669,14 @@ class GUI:
             theCombineThread = Thread(
                                     target = pc.combine,
                                     args = (
-                                            [self.file1.get(), self.file2.get()],
-                                            self.outputDir.get(),
-                                            self.fileName.get()))
+                                        [
+                                            self.file1.get(), 
+                                            self.file2.get()
+                                        ],
+                                        self.outputDir.get(),
+                                        self.fileName.get()
+                                    )
+                                )
             theCombineThread.start()
 
     def insert(self):
