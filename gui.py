@@ -942,4 +942,29 @@ class GUI:
 
         print("convert Image to PDF")
 
+    def checkFile(self, filename) -> bool:
+        """"Check if a file existsand if is readable
+
+        The method check if the file exists and if the file is readable 
+        and if not prompt an Error message and returns False. The method
+        returns True if the file exists and is readable.
+        
+        Parameters
+        ----------
+        filename: str
+            The path to the file.
+        """
+        # Check if there is anything in the variable
+        if filename == "":
+            tkinter.messagebox.showerror("No Selected file", 
+                "No image was selected. Please select or enter the path to the image you want to convert.")
+            return False
+
+        # Check the existance of the file
+        if not os.path.exists(filename):
+            tkinter.messagebox.showerror("File Path Error", 
+                "The enter or selected file path does not exist. Please select/enter a valid path")
+            return False
+
+
 GUI()
