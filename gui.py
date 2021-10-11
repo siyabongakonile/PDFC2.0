@@ -912,7 +912,12 @@ class GUI:
         sepBtn.pack(side = RIGHT, padx = 15, pady = 10, ipadx = 15, ipady = 0)
 
     def convertImage(self):
-        """Check if the image exist and convert it to a PDF Document"""
+        """Check if the image exist and convert it to a PDF Document
+        
+        The method checks if the image is there and whether it can 
+        proccess it and if it can then it converts it and it can not
+        it prompts a message explaining why.
+        """
         imageTypes = [
             "image/pngsvg",
             "image/png",
