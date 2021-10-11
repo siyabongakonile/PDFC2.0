@@ -6,6 +6,7 @@ import pdfc as pc
 import time, threading
 from threading import Thread
 import platform
+import filetype
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
@@ -912,37 +913,45 @@ class GUI:
 
     def convertImage(self):
         """Check if the image exist and convert it to a PDF Document"""
-        # imageTypes = [
-        #     "svg",
-        #     "png",
-        #     "rgb",
-        #     "gif",
-        #     "pbm",
-        #     "pgm",
-        #     "ppm",
-        #     "tiff",
-        #     "tiff",
-        #     "xbm",
-        #     "jpeg",
-        #     "bmp",
-        #     "webp",
-        #     "exr"
-        # ]
+        imageTypes = [
+            "image/pngsvg",
+            "image/png",
+            "image/pngrgb",
+            "image/pnggif",
+            "image/pngpbm",
+            "image/pngpgm",
+            "image/pngppm",
+            "image/pngtiff",
+            "image/pngtiff",
+            "image/pngxbm",
+            "image/pngjpeg",
+            "image/pngbmp",
+            "image/pngwebp",
+            "image/pngexr"
+        ]
 
-        if self.file1.get() == "":
-            tkinter.messagebox.showerror("No Selected file", 
-                "No image was selected. Please select or enter the path to the image you want to convert.")
-            return
-            
-        if not os.path.exists(self.file1.get()):
-            tkinter.messagebox.showerror("File Path Error", 
-                "The enter or selected file path does not exist. Please select/enter a valid path")
-            return
-        
+        # Stop if the file does not exist or there is no selected file
+        if not self.checkFile(self.file1.get()): return
 
-        print("convert Image to PDF")
+        # Check if the file ends with .svg
+        if self.file1.get().lower().endswith(".svg"):
+            pass
+        else:
+            kind = filetype.guess(self.file1.get())
+            if kind is None:
+                tkinter.messagebox.showerror("Type Error", 
+                    "Could not process the file. Cannot determine file type")
+                return
 
-    def checkFile(self, filename) -> bool:
+            if kind.mime in imageTypes:
+                pass # Proccess the Image
+            else:
+                tkinter.messagebox.showerror("Unsupported Format", 
+                    "It seems like we can not proccess that format. Type try another format.")
+                return
+
+
+    def checkFile(self, filename, noFileSelectedError = "", filePathError = "") -> bool:
         """"Check if a file existsand if is readable
 
         The method check if the file exists and if the file is readable 
@@ -953,18 +962,28 @@ class GUI:
         ----------
         filename: str
             The path to the file.
+        noFileSelectedError: str
+            The error that will be displayed when there is not file selected.
+        filePathError: str
+            The error message that will be displayed when the path does no exist.
         """
+
+        # Set the error messages
+        if noFileSelectedError == "":
+            noFileSelectedError = "No image was selected. Please select or enter the path to the image you want to convert."
+        
+        if filePathError == "":
+            filePathError = "The enter or selected file path does not exist. Please select/enter a valid path"
+
         # Check if there is anything in the variable
         if filename == "":
-            tkinter.messagebox.showerror("No Selected file", 
-                "No image was selected. Please select or enter the path to the image you want to convert.")
+            tkinter.messagebox.showerror("No Selected file", noFileSelectedError)
             return False
 
         # Check the existance of the file
         if not os.path.exists(filename):
-            tkinter.messagebox.showerror("File Path Error", 
-                "The enter or selected file path does not exist. Please select/enter a valid path")
+            tkinter.messagebox.showerror("File Path Error", filePathError)
             return False
-
+        return True
 
 GUI()
