@@ -149,7 +149,9 @@ class PDF:
                 newSVG.write(newImage)
                 newSVG.close()
             else:
-                newPNG = self.doc.get_page_pixmap(pageNum)
+                mat = fitz.Matrix(5, 5)
+                page = self.doc[pageNum]
+                newPNG = page.get_pixmap(matrix = mat)
                 newPNG.save(os.path.join(outputImageDir, outputImageName))
         except PermissionError:
             tkinter.messagebox.showerror("Permission Error", 
