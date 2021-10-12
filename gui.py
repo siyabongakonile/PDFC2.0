@@ -919,7 +919,7 @@ class GUI:
         it prompts a message explaining why.
         """
         imageTypes = [
-            "image/pngsvg",
+            "svg",
             "image/png",
             "image/pngrgb",
             "image/pnggif",

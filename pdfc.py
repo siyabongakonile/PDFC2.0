@@ -10,14 +10,25 @@ __authorsEmail__ = "siyabongakonile@gmail.com"
 __lastModified__ = "04 Oct 2021 21:48"
 
 class PDF:
-    def __init__(self, filename):
-        """Open the given file"""
+    def __init__(self, filename = ""):
+        """Open the given file or creates a new one.
+        
+        Depending on the given parameters, when the filename is given
+        then the PDF file will be open and if it is not given then
+        a new PDF document will be created in memory.
+
+        Parameters
+        ----------
+        filename: str
+            The filepath of a PDF file to opened.
+        """
         if filename != "":
             if os.path.exists(filename):
                 self.filename = os.path.abspath(filename)
                 self.doc = fitz.open(filename)
             else:
-                raise RuntimeError("Given file path does not exist.")
+                self.doc = fitz.open()
+                self.doc.new_page()
 
     def combine(self, otherFile, outputDir, filename) -> bool:
         """Combines the given PDFs and output that PDF in the given Dir
