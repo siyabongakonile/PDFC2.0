@@ -44,8 +44,10 @@ class PDF:
         ----------
         otherFile: str
             The second file that will be embed on the current file.
+            
         outputDir: str
             The directory to the output file will be created in.
+
         filename: str
             The filename of the new file.
 
@@ -67,6 +69,7 @@ class PDF:
         ----------
         page1: int
             The page number of the first page to be swapped
+
         page2: int
             The page number of the second page to be swapped
 
@@ -104,8 +107,10 @@ class PDF:
         ----------
         pageNum: int
             The page number that the file will be inserted after.
+
         filename: str
             The path of the file to insert to the current one.
+
         outputFilename: str
             The path or name of the output file.
 
@@ -199,8 +204,10 @@ class PDF:
         ----------
         pageNum: int
             The page number to convert to an image.
+
         outputImageDir: str
             The directory to create the output file in.
+
         outputImageName: str
             The name of the output file.
 
@@ -218,8 +225,10 @@ class PDF:
         ----------
         pageNum: int
             The page number to convert to an image.
+
         outputImageDir: str
             The directory to create the output file in.
+
         outputImageName: str
             The name of the output file.
 
