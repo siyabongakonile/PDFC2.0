@@ -7,7 +7,7 @@ import time
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
-__lastModified__ = "04 Oct 2021 21:48"
+__lastModified__ = "13 Oct 2021 06:06"
 
 class PDF:
     def __init__(self, filename = ""):
@@ -126,7 +126,18 @@ class PDF:
             doc2 = fitz.open(filename)
 
     def pageToImage(self, pageNum, imageType, outputImageDir = "", outputImageName = "") -> bool:
-        """Converts a page into an SVG/PNG image"""
+        """Converts a page into an SVG/PNG image
+        
+        This method coverts any page in the PDF document to an SVG or PNG 
+        depending on what the user wants.
+
+        Parameters
+        ----------
+        pageNum: int
+            The number of the page to convert.
+        imageType: str
+            The type of image to convert the page to. This is either 'svg' or 'png'
+        """
         pageNum = pageNum - 1
         basename = os.path.basename(self.filename)
 
