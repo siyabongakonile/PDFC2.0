@@ -135,8 +135,21 @@ class PDF:
         ----------
         pageNum: int
             The number of the page to convert.
+
         imageType: str
-            The type of image to convert the page to. This is either 'svg' or 'png'
+            The type of image to convert the page to. 
+            This is either 'svg' or 'png'
+
+        outputImageDir: str
+            The directory to create the image in
+
+        outputImageName: str
+            Custom name of the image
+        
+        Returns
+        -------
+        Boolean:
+            True if the page wass successfully converted or False otherwise
         """
         pageNum = pageNum - 1
         basename = os.path.basename(self.filename)
