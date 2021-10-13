@@ -10,6 +10,7 @@ import filetype
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
+__lastModified__ = "13 Oct 2021 06:06"
 
 # Thread class for the thread counter
 class ThreadCounter(Thread):
@@ -837,6 +838,7 @@ class GUI:
         """Display the GUI for changing a PDF page to an image"""
         self.emptyFrame()
         self.file1 = StringVar()
+        self.file2 = StringVar()
         self.imageType = StringVar()
         self.imageType.set("svg")
 
@@ -848,11 +850,16 @@ class GUI:
         entry  = Entry(frame1, bg = "white", textvariable = self.file1)
         browseBtn = Button(frame1, text = "Browse", command = self.setFile1)
         frame2 = Frame(frame, bg = "white")
-        sepBtn = Button(frame2, text = "Convert File", command = self.convertPage)
+        convertBtn = Button(frame2, text = "Convert File", command = self.convertPage)
 
         frame3 = Frame(frame, bg = "white")
         imageTypeOne = Radiobutton(frame3, bg = "white", text = "SVG", variable = self.imageType, value = "svg")
         imageTypeTwo = Radiobutton(frame3, bg = "white", text = "PNG", variable = self.imageType, value = "png")
+
+        frame4 = Frame(frame, bg = "white")
+        pageNumLabel = Label(frame4, bg = "white", text = "Selet the PDF file to convert: ", font = "sans-serif 11")
+        frame5 = Frame(frame, bg = "white")
+        pageNumEntry = Entry(frame5, bg = "white", textvariable = self.file2)
         
         frame.pack(side = TOP, fill = BOTH, expand = 1)
         headerLabel.pack(side = TOP, fill = X, pady = 10)
@@ -864,25 +871,50 @@ class GUI:
         imageTypeOne.pack(side = LEFT, fill = X, expand = 1)
         imageTypeTwo.pack(side = LEFT, fill = X, expand = 1)
         frame3.pack(side = TOP, fill = X, ipady = 15)
+        pageNumLabel.pack(side = LEFT, fill = X, padx = 16, pady = 2)
+        frame4.pack(side = TOP, fill = X)
+        pageNumEntry.pack(side = LEFT, fill = X, expand = 1,  ipady = 5, ipadx = 10, padx = 5)
+        frame5.pack(side = TOP, fill = X, padx = 10)
         frame2.pack(side = TOP, fill = X)
-        sepBtn.pack(side = RIGHT, padx = 15, pady = 10, ipadx = 15, ipady = 0)
+        convertBtn.pack(side = RIGHT, padx = 15, pady = 10, ipadx = 15, ipady = 0)
 
     def convertPage(self):
         """Convert the page depending on the selected type"""
-        if self.imageType.get() == "svg":
-            self.pageToSVG()
-        else:
-            self.pageToPNG()
+        if not self.checkFile(self.file1.get()): return
 
-    def pageToSVG(self):
+        if self.file2.get() == "":
+            pageNum = 1
+        else:
+            # Convert page number to integer
+            try:
+                pageNum = int(self.file2.get())
+            except:
+                tkinter.messagebox.showerror("Page Error", 
+                    "Please enter a valid integer of the page number.")
+                return
+
+        # Check if the page number is not above the document number of pages
+        doc = pc.PDF(self.file1.get())
+        if pageNum > int(doc.getNumPage()):
+            tkinter.messagebox.showerror("Page Number Error",
+                "The page number to convert can not be above the number of pages in the document.")
+            return
+
+        if self.imageType.get() == "svg":
+            self.pageToSVG(pageNum)
+        else:
+            self.pageToPNG(pageNum)
+        tkinter.messagebox.showinfo("Success", "The page was successfully converted.")
+
+    def pageToSVG(self, pageNum):
         """Convert a page to an SVG image"""
         doc = pc.PDF(self.file1.get())
-        doc.pageToSVG()
+        doc.pageToSVG(pageNum)
 
-    def pageToPNG(self):
+    def pageToPNG(self, pageNum):
         """Covert a page to a PNG image"""
         doc = pc.PDF(self.file1.get())
-        doc.pageToPNG()
+        doc.pageToPNG(pageNum)
 
     def imageToPageGUI(self):
         """Display the GUI for converting an image to a PDF page"""
@@ -975,7 +1007,7 @@ class GUI:
 
         # Set the error messages
         if noFileSelectedError == "":
-            noFileSelectedError = "No image was selected. Please select or enter the path to the image you want to convert."
+            noFileSelectedError = "Please select or enter the path of file to proccess"
         
         if filePathError == "":
             filePathError = "The enter or selected file path does not exist. Please select/enter a valid path"

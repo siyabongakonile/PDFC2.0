@@ -30,6 +30,10 @@ class PDF:
                 self.doc = fitz.open()
                 self.doc.new_page()
 
+    def getNumPage(self):
+        """Get number of page in the document"""
+        return self.doc.page_count
+
     def combine(self, otherFile, outputDir, filename) -> bool:
         """Combines the given PDFs and output that PDF in the given Dir
         
@@ -164,7 +168,7 @@ class PDF:
                 "Something went wrong while trying to create a file.")
         return True
 
-    def pageToSVG(self, pageNum = 1, outputImageDir = "", outputImageName = "") -> bool:
+    def pageToSVG(self, pageNum, outputImageDir = "", outputImageName = "") -> bool:
         """Converts a page into an SVG image
         
         Parameters
@@ -183,7 +187,7 @@ class PDF:
         """
         return self.pageToImage(pageNum, "svg", outputImageDir, outputImageName)
 
-    def pageToPNG(self, pageNum = 1, outputImageDir = "", outputImageName = "") -> bool:
+    def pageToPNG(self, pageNum, outputImageDir = "", outputImageName = "") -> bool:
         """Converts a page into a PNG image
         
         Parameters
