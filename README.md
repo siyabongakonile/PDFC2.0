@@ -1,5 +1,6 @@
 # PDFC
-This is a code base of my first software that i created using Python and PyPDF2 but now it is being modified to use PyMuPDF instead
+This is a code base of my first software that i created using Python and PyPDF2 but now it is being modified to use PyMuPDF instead. The software still use a lot of PyPDF2 in it's code by the final 
+product is going to be PyPDF2 free.
 
 You can visit the code base for the original software here [https://github.com/siyabongakonile/PDFC](https://github.com/siyabongakonile/PDFC).
 
