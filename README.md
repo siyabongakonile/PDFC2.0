@@ -19,3 +19,5 @@ The software allows you to work with pages of a PDF file:
 - <strike>Create SVG image from a PDF page.</strike>
 - <strike>Create PNG image from a PDF page.</strike>
 - <strike>Create a PDF file from an image.<strike>
+
+The software also allows you to change themes, there are two theme that it supports.
