@@ -661,6 +661,10 @@ class GUI:
         """Opens a file dialog and saves the selected file path to `self.file2`"""
         self.file2.set(askopenfilename())
 
+    def setFile3(self):
+        """Opens a file dialog and saves the selected file path to `self.file3`"""
+        self.file3.set(askopenfilename())
+
     def outDir(self):
         """Opens a select directory dialog 
         and saves the path of the selected directory to `self.outputDir`"""
@@ -839,6 +843,7 @@ class GUI:
         self.emptyFrame()
         self.file1 = StringVar()
         self.file2 = StringVar()
+        self.file3 = StringVar()
         self.imageType = StringVar()
         self.imageType.set("svg")
 
@@ -861,6 +866,12 @@ class GUI:
         frame5 = Frame(frame, bg = "white")
         pageNumEntry = Entry(frame5, bg = "white", textvariable = self.file2)
         
+        outputDirFrame  = Frame(frame, bg = "white")
+        outputDirLabel  = Label(outputDirFrame, bg = "white", text = "Select the output folder: ", font = "sans-serif 11")
+        outputDirFrame2 = Frame(frame, bg = "white")
+        outputDirEntry  = Entry(outputDirFrame2, bg = "white", textvariable = self.file3)
+        outputDirBtn    = Button(outputDirFrame2, text = "Browse", command = self.setFile3)
+        
         frame.pack(side = TOP, fill = BOTH, expand = 1)
         headerLabel.pack(side = TOP, fill = X, pady = 10)
         frame0.pack(side = TOP, fill = X)
@@ -875,6 +886,11 @@ class GUI:
         frame4.pack(side = TOP, fill = X)
         pageNumEntry.pack(side = LEFT, fill = X, expand = 1,  ipady = 5, ipadx = 10, padx = 5)
         frame5.pack(side = TOP, fill = X, padx = 10)
+        outputDirLabel.pack(side = LEFT, fill = X, padx = 16, pady = 2)
+        outputDirFrame.pack(side = TOP, fill = X)
+        outputDirEntry.pack(side = LEFT, fill = X, expand = 1, ipady = 5, ipadx = 10, padx = 5)
+        outputDirBtn.pack(side = LEFT, ipady = 2, ipadx = 10, padx = 5)
+        outputDirFrame2.pack(side = TOP, fill = X, padx = 10)
         frame2.pack(side = TOP, fill = X)
         convertBtn.pack(side = RIGHT, padx = 15, pady = 10, ipadx = 15, ipady = 0)
 
@@ -900,21 +916,32 @@ class GUI:
                 "The page number to convert can not be above the number of pages in the document.")
             return
 
+        if self.file3.get() == "":
+            self.file3.set(os.path.dirname(self.file1.get()))
+        elif not (os.path.exists(self.file3.get()) and os.path.isdir(self.file3.get())):
+            tkinter.messagebox.showerror("Folder Error", 
+                "Make sure the output Folder selected exists")
+            return
+
+        #
+        # Check if you can write on that folder or not
+        #
+
         if self.imageType.get() == "svg":
-            self.pageToSVG(pageNum)
+            self.pageToSVG(pageNum, self.file3.get())
         else:
-            self.pageToPNG(pageNum)
+            self.pageToPNG(pageNum, self.file3.get())
         tkinter.messagebox.showinfo("Success", "The page was successfully converted.")
 
-    def pageToSVG(self, pageNum):
+    def pageToSVG(self, pageNum, outputDir):
         """Convert a page to an SVG image"""
         doc = pc.PDF(self.file1.get())
-        doc.pageToSVG(pageNum)
+        doc.pageToSVG(pageNum, outputDir)
 
-    def pageToPNG(self, pageNum):
+    def pageToPNG(self, pageNum, outputDir):
         """Covert a page to a PNG image"""
         doc = pc.PDF(self.file1.get())
-        doc.pageToPNG(pageNum)
+        doc.pageToPNG(pageNum, outputDir)
 
     def imageToPageGUI(self):
         """Display the GUI for converting an image to a PDF page"""
@@ -987,7 +1014,6 @@ class GUI:
                     "It seems like we can not proccess that format. Type try another format.")
                 return
 
-
     def checkFile(self, filename, noFileSelectedError = "", filePathError = "") -> bool:
         """"Check if a file existsand if is readable
 
@@ -999,8 +1025,10 @@ class GUI:
         ----------
         filename: str
             The path to the file.
+
         noFileSelectedError: str
             The error that will be displayed when there is not file selected.
+
         filePathError: str
             The error message that will be displayed when the path does no exist.
         """
