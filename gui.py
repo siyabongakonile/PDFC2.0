@@ -1054,4 +1054,5 @@ class GUI:
             tkinter.messagebox.showerror("File Path Error", filePathError)
             return False
         return True
+
 GUI()
