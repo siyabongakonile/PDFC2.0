@@ -10,7 +10,7 @@ import filetype
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
-__lastModified__ = "14 Oct 2021 06:03"
+__lastModified__ = "15 Oct 2021 07:00"
 
 # Thread class for the thread counter
 class ThreadCounter(Thread):
@@ -1014,6 +1014,9 @@ class GUI:
                 tkinter.messagebox.showerror("Unsupported Format", 
                     "It seems like we can not proccess that format. Type try another format.")
                 return
+        
+        doc = pc.PDF(self.file1.get())
+        doc.imageToPage()
 
     def checkFile(self, filename, noFileSelectedError = "", filePathError = "") -> bool:
         """"Check if a file existsand if is readable

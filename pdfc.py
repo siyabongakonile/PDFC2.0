@@ -7,7 +7,7 @@ import time
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
-__lastModified__ = "13 Oct 2021 06:06"
+__lastModified__ = "15 Oct 2021 07:00"
 
 class PDF:
     def __init__(self, filename = ""):
@@ -239,8 +239,40 @@ class PDF:
         """
         return self.pageToImage(pageNum, "png", outputImageDir, outputImageName)
 
-    def imageToPage(self, filename = "", outputImageDir = "", outputImageName = "") -> bool:
-        pass
+    def imageToPage(self, outputImageDir = "", outputImageName = "") -> bool:
+        """Converts an image to a PDF page.
+        
+        Takes in an image and creates a PDF file with a single page that is 
+        filled with that image from it.
+
+        Parameters
+        ----------
+        outputImageDir: str
+            The path to the directory to output the image to.
+
+        outputImageName: str 
+            The name of the PDF product file.
+
+        Returns
+        -------
+        Boolean:
+            True if the document was successfully created and False otherwise.
+        """
+        if outputImageDir == "":
+            outputImageDir = os.path.dirname(self.filename)
+        
+        if outputImageName == "":
+            outputImageName = os.path.basename(self.filename) + "-image.pdf"
+
+        try:
+            bytePDFImage = self.doc.convert_to_pdf()
+            # Create a new pdf file
+            newPDF = open(os.path.join(outputImageDir, outputImageName), "wb")
+            newPDF.write(bytePDFImage)
+            newPDF.close()
+            return True
+        except:
+            return False
 
 def combine(pdfFiles, outputDir, filename):
     """This function combines the given PDFs 
