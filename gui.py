@@ -923,9 +923,10 @@ class GUI:
                 "Make sure the output Folder selected exists")
             return
 
-        #
-        # Check if you can write on that folder or not
-        #
+        if not os.access(self.file3.get(), os.W_OK):
+            tkinter.messagebox.showerror("Permission Error", 
+                "The program does not have the permission to create a file in that folder.")
+            return
 
         if self.imageType.get() == "svg":
             self.pageToSVG(pageNum, self.file3.get())
@@ -1050,5 +1051,4 @@ class GUI:
             tkinter.messagebox.showerror("File Path Error", filePathError)
             return False
         return True
-
 GUI()
