@@ -89,7 +89,21 @@ class PDF:
         Boolean:
             True if everything went successfully and False otherwise.
         """
-        pass
+        docDir = os.path.dirname(self.filename)
+        docFilename = os.path.basename(self.filename)
+
+        # delete pages is zeros based but method is not
+        listOfPages = [i - 1 for i in listOfPages]
+
+        try:
+            self.doc.delete_pages(listOfPages)
+            newDoc = fitz.open()
+            newDoc.insert_pdf(self.doc)
+            newDoc.save(os.path.join(docDir, docFilename + "-new.pdf"))
+            newDoc.close()
+            return True
+        except:
+            return False
 
     def swapPages(self, page1, page2) -> bool:
         """Swaps two pages in a PDF file.
@@ -154,16 +168,14 @@ class PDF:
         Boolean:
             True if the file was created without an error or False otherwise.
         """
-        if pageNum > self.doc.page_count():
-            pageNum = self.doc.page_count()
-
-        if os.path.exists(filename):
-            raise RuntimeError("File path does not exist.")
+        if not outputFilename.lower().endswith(".pdf"):
+            outputFilename = outputFilename + ".pdf"
         
-        if self.filename == os.abspath(filename):
-            doc2 = self.doc
-        else:
-            doc2 = fitz.open(filename)
+
+        doc2 = fitz.open(filename)
+        self.doc.insert_pdf(doc2, 0, -1, pageNum)
+        self.doc.save(outputFilename)
+        self.doc.close()
 
     def pageToImage(self, pageNum, imageType, outputImageDir = "", outputImageName = "") -> bool:
         """Converts a page into an SVG/PNG image
@@ -310,36 +322,6 @@ class PDF:
             return False
 
 
-def delPages(pdfFilename, listOfPages):
-    """This function deletes the given page from a PDF file"""
-    print("Pges to Delete: ", listOfPages)
-    try:
-        pdfFile = open(pdfFilename, 'rb')
-        PdfReader = PyPDF2.PdfFileReader(pdfFile)
-        print("Number of pages: ", PdfReader.numPages)
-    except:
-        tkinter.messagebox.showerror("Openning Error",
-                                    "Could not process the PDF file.")
-    filename = os.path.basename(pdfFilename)
-    dirname = os.path.dirname(pdfFilename)
-    newWriter = PyPDF2.PdfFileWriter()
-
-    #remove the given pages and create a new file
-    for pageNum in range(1, PdfReader.numPages + 1):
-        if pageNum in listOfPages:
-            continue
-        try:
-            newWriter.addPage(PdfReader.getPage(pageNum - 1))
-        except IndexError:
-            continue
-        
-    newFile = open(os.path.join(dirname, "new_" + filename), 'wb')
-    newWriter.write(newFile)
-    newFile.close()
-    pdfFile.close()
-    tkinter.messagebox.showinfo("Done",
-                            "The pages where successfully deleted.")
-    
 def swapPages(pdfFilename, page1, page2):
     """This function swap the given page numbers"""
     #return -1 if a problem occured while opening the PDF file
