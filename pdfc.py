@@ -171,7 +171,6 @@ class PDF:
         if not outputFilename.lower().endswith(".pdf"):
             outputFilename = outputFilename + ".pdf"
         
-
         doc2 = fitz.open(filename)
         self.doc.insert_pdf(doc2, 0, -1, pageNum)
         self.doc.save(outputFilename)
@@ -446,52 +445,3 @@ def sepPages(filename):
                             "The Pages were separated successfully.")
     else:
         return 1
-
-def insert(file1, file2, pageNum, outputFilename):
-    """Inserts a PDF file between the pages of another PDF file
-
-        param file1     - The file to insert the other 
-                            PDF file will be inserted to.
-        param file2     - The file to insert.
-        param pageNum   - THe page number that the file 
-                            will be inserted after.
-        param outputFilename - The output file."""
-    pageNum = int(pageNum)
-    if file1 == file2:
-        isSameFile = True
-        pdfFile1 = open(file1, 'rb')
-        pdfFile2 = pdfFile1
-        reader1 = PyPDF2.PdfFileReader(pdfFile1)
-        reader2 = reader1
-    else:
-        isSameFile = False
-        pdfFile1 = open(file1, 'rb')
-        pdfFile2 = open(file2, 'rb')
-        reader1 = PyPDF2.PdfFileReader(pdfFile1)
-        reader2 = PyPDF2.PdfFileReader(pdfFile2)
-
-    dirname = os.path.dirname(file1)
-    newFileWriter = PyPDF2.PdfFileWriter()
-
-    #add the page to the new file
-    for page in range(1, reader1.numPages + 1):
-        # Insert the second pdf after reaching
-        # the number of page to insert after
-        if (page - 1) == pageNum:
-            for page2 in range(reader2.numPages):
-                newFileWriter.addPage(reader2.getPage(page2))
-        newFileWriter.addPage(reader1.getPage(page - 1))
-
-    newFile = open(outputFilename, 'wb')
-    newFileWriter.write(newFile)
-    newFile.close()
-
-    # Close all the open files
-    if isSameFile:
-        pdfFile1.close()
-    else:
-        pdfFile1.close()
-        pdfFile2.close()
-    newFile.close()
-    tkinter.messagebox.showinfo("Done",
-        "The PDF file was successfully inserted.")

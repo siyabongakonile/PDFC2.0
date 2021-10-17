@@ -707,12 +707,16 @@ class GUI:
                 tkinter.messagebox.showerror("Page Error",
                                             "You did not enter an integer in the page box.")
 
+            doc = pc.PDF(self.file1.get())
             #start the thread
-            theInsertThread = Thread(target = pc.insert, 
-                                    args = (self.file1.get(), 
+            theInsertThread = Thread(
+                                        target = doc.insertPDF, 
+                                        args = (
+                                            int(self.insertAfter.get()), 
                                             self.file2.get(), 
-                                            self.insertAfter.get(), 
-                                            self.fileName.get()))
+                                            self.fileName.get()
+                                        )
+                                    )
             theInsertThread.start()
             
     def checkPdfs(self, noDir = False):
