@@ -7,7 +7,6 @@ import time
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
-__lastModified__ = "15 Oct 2021 07:00"
 
 class PDF:
     def __init__(self, filename = ""):
@@ -68,6 +67,11 @@ class PDF:
         ----------
         listOfPages: List
             The list of pages to delete.
+
+        Returns
+        -------
+        Boolean:
+            True if everything went successfully and False otherwise.
         """
         pass
 
@@ -106,6 +110,12 @@ class PDF:
 
     def separatePages(self) -> bool:
         """Separates the whole document to single PDF pages
+        
+        Returns
+        -------
+        Boolean: 
+            True if all the pages were successfully separated and 
+            False otherwise
         """
         pass
 
