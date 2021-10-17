@@ -310,7 +310,7 @@ class GUI:
         labelFileName.pack(fill = BOTH)
         self.fileName = StringVar()
         fileName = Entry(frame5, textvariable = self.fileName)
-        fileName.pack(fill = BOTH, expand = 1, side = LEFT, padx = 5, ipady = 4)
+        fileName.pack(fill = X, expand = 1, side = LEFT, padx = 5, ipady = 4)
 
         #create a frame
         frame6 = Frame(self.contFrame, bg = "white")
@@ -360,7 +360,7 @@ class GUI:
         labelFileName.pack(fill = BOTH)
         self.fileName = StringVar()
         fileName = Entry(frame5, textvariable = self.fileName)
-        fileName.pack(fill = BOTH, expand = 1, side = LEFT, padx = 5, ipady = 4)
+        fileName.pack(fill = X, expand = 1, side = LEFT, padx = 5, ipady = 4)
 
         #create a frame
         frame6 = Frame(self.contFrame, bg = "white")
@@ -821,8 +821,10 @@ class GUI:
                     for _ in range(sepString.count("")):
                         sepString.remove("")
 
+                    doc = pc.PDF(self.file1.get())
+
                     #create a thread
-                    theThread = Thread(target = pc.delPages, args = (filename, sepString))
+                    theThread = Thread(target = doc.delPages, args = (sepString,))
                     theThread.start()
                 else:
                     tkinter.messagebox.showerror("Pages Error",
