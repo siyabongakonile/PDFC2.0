@@ -59,7 +59,16 @@ class PDF:
         pass
 
     def delPages(self, listOfPages) -> bool:
-        """Delete a given number of pages"""
+        """Delete a given number of pages
+        
+        Takes in a list of page numbers to delete then deletes them
+        and create a new PDF document
+
+        Parameters
+        ----------
+        listOfPages: List
+            The list of pages to delete.
+        """
         pass
 
     def swapPages(self, page1, page2) -> bool:
