@@ -151,7 +151,7 @@ class GUI:
             #the contents frame
             self.defaultOption()
         elif theme == 2:
-            self.window.geometry("500x300")
+            self.window.geometry("700x400")
             self.window.resizable(0,0)
 
             #add the top menu
@@ -270,10 +270,10 @@ class GUI:
 
         #create a second frame
         frame2 = Frame(self.contFrame, bg = "white")
-        frame2.pack(fill = BOTH, expand = 1, padx = 10, pady = 5)
+        frame2.pack(fill = X, expand = 1, padx = 10, pady = 5)
         self.file1 = StringVar()
         FileBox1 = Entry(frame2, textvariable=self.file1)
-        FileBox1.pack(fill = BOTH, expand = 1, side = LEFT, padx = 5, 
+        FileBox1.pack(fill = X, expand = 1, side = LEFT, padx = 5, 
                     ipady = 4, ipadx = 5)
         fileOneBrowseBtn = Button(frame2, text = "Browse", 
                                 command=self.setFile1)
@@ -328,10 +328,10 @@ class GUI:
 
         #create a second frame
         frame2 = Frame(self.contFrame, bg = "white")
-        frame2.pack(fill = BOTH, expand = 1, padx = 10, pady = 5)
+        frame2.pack(fill = X, expand = 1, padx = 10, pady = 5)
         self.file1 = StringVar()
         FileBox1 = Entry(frame2, textvariable=self.file1)
-        FileBox1.pack(fill = BOTH, expand = 1, side = LEFT, padx = 5, ipady = 4, ipadx = 5)
+        FileBox1.pack(fill = X, expand = 1, side = LEFT, padx = 5, ipady = 4, ipadx = 5)
         fileOneBrowseBtn = Button(frame2, text = "Browse", command=self.setFile1)
         fileOneBrowseBtn.pack(ipadx = 15)
 
@@ -670,7 +670,7 @@ class GUI:
         self.outputDir.set(askdirectory())
 
     def combine(self):
-        """Calls  the pdf combiner function and checks if the operation was a success"""
+        """Combines any two given pdf files"""
         if self.checkPdfs():
             #check if the output directory is selected or not
             #   if not get the directory of the first file
@@ -678,13 +678,12 @@ class GUI:
                 file1Dirname = os.path.dirname(self.file1.get())
                 self.outputDir.set(file1Dirname)
 
+            pdf1 = pc.PDF(self.file1.get())
+
             theCombineThread = Thread(
-                                    target = pc.combine,
+                                    target = pdf1.combine,
                                     args = (
-                                        [
-                                            self.file1.get(), 
-                                            self.file2.get()
-                                        ],
+                                        self.file2.get(),
                                         self.outputDir.get(),
                                         self.fileName.get()
                                     )

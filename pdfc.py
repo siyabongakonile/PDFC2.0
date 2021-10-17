@@ -33,6 +33,11 @@ class PDF:
         """Get number of page in the document"""
         return self.doc.page_count
 
+    def close(self):
+        """Closes the document and removes the filename"""
+        self.doc.close()
+        self.filename = ""
+
     def combine(self, otherFile, outputDir, filename) -> bool:
         """Combines the given PDFs and output that PDF in the given Dir
         
@@ -55,7 +60,19 @@ class PDF:
         Boolean:
             True the file was successfully created or False otherwise
         """
-        pass
+        if not filename.lower().endswith(".pdf"): 
+            filename = filename + ".pdf"
+        newFilePath = os.path.join(outputDir, filename)
+
+        try:
+            otherDoc = fitz.open(otherFile)
+            self.doc.insert_pdf(otherDoc, 0, self.getNumPage() - 1)
+            self.doc.save(newFilePath)
+            otherDoc.close()
+            return True
+        except:
+            return False
+
 
     def delPages(self, listOfPages) -> bool:
         """Delete a given number of pages
