@@ -73,7 +73,6 @@ class PDF:
         except:
             return False
 
-
     def delPages(self, listOfPages) -> bool:
         """Delete a given number of pages
         
@@ -310,37 +309,6 @@ class PDF:
         except:
             return False
 
-def combine(pdfFiles, outputDir, filename):
-    """This function combines the given PDFs 
-        and output that PDF in the given Dir"""
-    #open files and add them to a newFile
-    newPdfFile = PyPDF2.PdfFileWriter()
-    for ctr in range(len(pdfFiles)):
-        try:
-            openFile = open(pdfFiles[ctr], "rb")
-            pdfFiles[ctr] = PyPDF2.PdfFileReader(openFile)
-        except:
-            tkinter.messagebox.showerror("File Error", 
-                                "Could not open file" + str(ctr + 1))
-            return False
-
-    for fileIndex in range(len(pdfFiles)):
-        for numPage in range(pdfFiles[fileIndex].numPages):
-            page = pdfFiles[fileIndex].getPage(numPage)
-            newPdfFile.addPage(page)
-
-    newFileDir = os.path.join(outputDir, filename)
-    try:
-        newFile = open(newFileDir, "wb")
-    except PermissionError:
-        tkinter.messagebox.showinfo("File Permission",
-                "Cannot access " + filename + \
-                " because the file is being used by another program.")
-        tkinter.messagebox.showerror("Unsuccessful Operation", 
-                                    "A problem occured while trying to combine the PDFs. Try again")
-    newPdfFile.write(newFile)
-    tkinter.messagebox.showinfo("Successfully Combined",
-                            "The PDFs where successfully combined.")
 
 def delPages(pdfFilename, listOfPages):
     """This function deletes the given page from a PDF file"""
