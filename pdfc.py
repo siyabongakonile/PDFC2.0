@@ -129,10 +129,13 @@ class PDF:
         page2 = page2 - 1
         if not page1 > page2:
             page1, page2 = page2, page1
-
-        self.doc.move_page(page2, page1)
-        self.doc.move_page(page1, page2)
-        self.doc.save(newPDFFilename)
+        try:
+            self.doc.move_page(page2, page1)
+            self.doc.move_page(page1, page2)
+            self.doc.save(newPDFFilename)
+            return True
+        except:
+            return False
 
     def reversePages(self) -> bool:
         """Reverses the whole documents
