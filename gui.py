@@ -764,7 +764,8 @@ class GUI:
 
     def revPages(self):
         """Trigers the reverse pages function in a Thread"""
-        theRevThread = Thread(target = pc.reversePages, args = (self.file1.get(),))
+        doc = pc.PDF(self.file1.get())
+        theRevThread = Thread(target = doc.reversePages)
         theRevThread.start() 
 
     def sepPages(self):

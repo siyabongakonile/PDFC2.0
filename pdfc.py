@@ -136,7 +136,16 @@ class PDF:
             True if the PDF file with the reversed pages was created 
             successfully and False otherwise.
         """
-        pass
+        docDir = os.path.dirname(self.filename)
+        docName = os.path.basename(self.filename) + "-reversed.pdf"
+
+        newPDFFile = fitz.open()
+        for pageNum in range(self.getNumPage(), 0, -1):
+            page = pageNum - 1
+            newPDFFile.insert_pdf(self.doc, page, page)
+        newPDFFile.save(os.path.join(docDir, docName))
+        newPDFFile.close()        
+
 
     def separatePages(self) -> bool:
         """Separates the whole document to single PDF pages
@@ -379,53 +388,3 @@ def swapPages(pdfFilename, page1, page2):
     pdfFile.close()
     tkinter.messagebox.showinfo("Successfully Done",
                         "The PDF pages were successfully swaped.")
-
-def reversePages(filename):
-    """ Creates a file with the pages of the selected one reversed """
-    # check if the file ends with '.pdf'
-    if filename.endswith(".pdf"):
-        #open the file
-        try:
-            fileHandler = open(filename, 'rb')
-        except:
-            tkinter.messagebox.showerror("Error Openning File", 
-                                        "Something went wrong while trying to open the PDF file.")
-
-        # read the file with PyPDF2
-        try:
-            reader = PyPDF2.PdfFileReader(fileHandler)
-        except:
-            tkinter.messagebox.showerror("Reading file error", 
-                                        "An error has occured while trying to read the PDF file.")
-
-        #get the number of pages
-        fileNumPages = reader.numPages
-
-        # reverse the pages and add them in a new PDF file
-        try:
-            #get the reversed pages
-            newFile = PyPDF2.PdfFileWriter()
-            #get the pages in reverse order
-            for i in range(fileNumPages - 1, -1, -1):
-                page = reader.getPage(i)
-                newFile.addPage(page)
-
-            
-            oldDir = os.getcwd()
-            currentDir = os.path.dirname(filename)
-            os.chdir(currentDir)
-            fileBasename = os.path.basename(filename)
-            newPdf = open(fileBasename[:-4] + "-" + 
-                        str(round(time.time())) + ".pdf", 'wb')
-            newFile.write(newPdf)
-            newPdf.close()
-            fileHandler.close()
-            os.chdir(oldDir)
-        except:
-            tkinter.messagebox.showerror("processing Error", 
-                                        "An error has occured while processing the the document.")
-        tkinter.messagebox.showinfo("success", 
-                                "The PDF was successfully reversed.")
-    else:
-        tkinter.messagebox.showerror("Error", 
-                            "Something went wrong. Please try again.")
