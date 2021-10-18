@@ -1,6 +1,5 @@
 from posixpath import basename
 import tkinter.messagebox
-import PyPDF2
 import fitz
 import os
 import time
@@ -357,51 +356,3 @@ class PDF:
             return True
         except:
             return False
-
-
-def swapPages(pdfFilename, page1, page2):
-    """This function swap the given page numbers"""
-    #return -1 if a problem occured while opening the PDF file
-    #return -2 if a problem occured while processing the file
-    #return -3 if a number of the page is less or greater than
-    #   the number of pages of the PDF file
-    #return 1  if the process was a success
-    try:
-        pdfFile = open(pdfFilename, 'rb')
-    except:
-        tkinter.messagebox.showerror("Error Openning File",
-                    "Could not open the PDF file. Please try again")
-        return
-    pdfReader = PyPDF2.PdfFileReader(pdfFile)
-    pdfNumPages = pdfReader.numPages
-
-    #check the number if they are in range
-    if (page1 < 1 or pdfNumPages < page1) or \
-        (page2 < 1 or pdfNumPages < page2):
-        tkinter.messagebox.showerror("Page Error", 
-                            "It seems like there is a problem with the page count.")
-        return
-
-    p1 = pdfReader.getPage(int(page1) - 1)
-    p2 = pdfReader.getPage(int(page2) - 1)
-
-    #copy the pdf with the chnges in a new one
-    newPdf = PyPDF2.PdfFileWriter()
-    for pageNum in range(pdfNumPages):
-        if (page1 - 1) == pageNum:
-            newPdf.addPage(p2)
-            continue
-        elif (page2 - 1) == pageNum:
-            newPdf.addPage(p1)
-            continue
-        newPdf.addPage(pdfReader.getPage(pageNum))
-
-    currentDir = os.path.dirname(pdfFilename)
-    filename = os.path.basename(pdfFilename)
-    os.chdir(currentDir)
-    nPdf = open(filename[:-4] + '_swaped.pdf', 'wb')
-    newPdf.write(nPdf)
-    nPdf.close()
-    pdfFile.close()
-    tkinter.messagebox.showinfo("Successfully Done",
-                        "The PDF pages were successfully swaped.")
