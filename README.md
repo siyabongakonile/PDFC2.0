@@ -1,4 +1,7 @@
 # PDFC
+
+<img src="https://github.com/siyabongakonile/PDFC2.0/blob/main/img/screenshot" alt="screenshot of PDFC2.0">
+
 This is a code base of my first software that i created using Python and PyPDF2 but now it is modified to fully use PyMuPDF instead. Other depends are filetype for checking the file type of images.
 
 You can visit the code base for the original software here [https://github.com/siyabongakonile/PDFC](https://github.com/siyabongakonile/PDFC).
