@@ -147,7 +147,16 @@ class PDF:
             True if all the pages were successfully separated and 
             False otherwise
         """
-        pass
+        docDir = os.path.dirname(self.filename)
+        docName = os.path.basename(self.filename)
+        counter = 1
+
+        for page in self.doc:
+            newPDFFile = fitz.open()
+            newPDFFile.insert_pdf(page)
+            filePath = os.path.join(docDir, docName + "-page" + str(counter) + ".pdf")
+            newPDFFile.save(filePath)
+            newPDFFile.close()
 
     def insertPDF(self, pageNum, filename, outputFilename) -> bool:
         """Inserts a PDF file between the pages of another PDF file
@@ -445,3 +454,6 @@ def sepPages(filename):
                             "The Pages were separated successfully.")
     else:
         return 1
+
+
+        

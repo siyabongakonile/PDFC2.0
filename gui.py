@@ -774,7 +774,8 @@ class GUI:
             self.setFile1()
         else:
             #sepStatus = pc.sepPages(self.file1.get())
-            theThread = Thread(target = pc.sepPages, args = (self.file1.get(),))
+            doc = pc.PDF(self.file1.get())
+            theThread = Thread(target = doc.separatePages)
             theThread.start()
 
     def processCounter(self):
