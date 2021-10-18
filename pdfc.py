@@ -429,34 +429,3 @@ def reversePages(filename):
     else:
         tkinter.messagebox.showerror("Error", 
                             "Something went wrong. Please try again.")
-
-def sepPages(filename):
-    """Separate the given file into its pages."""
-    if filename.endswith(".pdf"):
-        # Try to open and read the PDF file
-        try:
-            pdfFile = open(filename, 'rb')
-            reader  = PyPDF2.PdfFileReader(pdfFile)
-        except:
-            return 2
-        # Start the separating process
-        workingDir = os.path.dirname(filename)
-        numPages = reader.numPages
-        for page in range(numPages):
-            pageNo = page + 1
-            #print("PAGE: ", pageNo)
-            newPage = open(os.path.join(workingDir, "page-" 
-                +str(pageNo) + "-" + os.path.basename(filename)), 'wb')
-            pageWriter = PyPDF2.PdfFileWriter()
-            pageWriter.addPage(reader.getPage(page))
-            pageWriter.write(newPage)
-            newPage.close()
-        pdfFile.close()
-        #tell the user that the process was a success
-        tkinter.messagebox.showinfo("Success",
-                            "The Pages were separated successfully.")
-    else:
-        return 1
-
-
-        
