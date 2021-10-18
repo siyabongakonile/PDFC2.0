@@ -139,13 +139,16 @@ class PDF:
         docDir = os.path.dirname(self.filename)
         docName = os.path.basename(self.filename) + "-reversed.pdf"
 
-        newPDFFile = fitz.open()
-        for pageNum in range(self.getNumPage(), 0, -1):
-            page = pageNum - 1
-            newPDFFile.insert_pdf(self.doc, page, page)
-        newPDFFile.save(os.path.join(docDir, docName))
-        newPDFFile.close()        
-
+        try:
+            newPDFFile = fitz.open()
+            for pageNum in range(self.getNumPage(), 0, -1):
+                page = pageNum - 1
+                newPDFFile.insert_pdf(self.doc, page, page)
+            newPDFFile.save(os.path.join(docDir, docName))
+            newPDFFile.close()     
+            return True 
+        except:
+            return False  
 
     def separatePages(self) -> bool:
         """Separates the whole document to single PDF pages
