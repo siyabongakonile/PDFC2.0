@@ -871,7 +871,7 @@ class GUI:
         imageTypeTwo = Radiobutton(frame3, bg = "white", text = "PNG", variable = self.imageType, value = "png")
 
         frame4 = Frame(frame, bg = "white")
-        pageNumLabel = Label(frame4, bg = "white", text = "Selet the PDF file to convert: ", font = "sans-serif 11")
+        pageNumLabel = Label(frame4, bg = "white", text = "Enter the page number to convert: ", font = "sans-serif 11")
         frame5 = Frame(frame, bg = "white")
         pageNumEntry = Entry(frame5, bg = "white", textvariable = self.file2)
         
