@@ -149,14 +149,17 @@ class PDF:
         """
         docDir = os.path.dirname(self.filename)
         docName = os.path.basename(self.filename)
-        counter = 1
 
-        for page in self.doc:
-            newPDFFile = fitz.open()
-            newPDFFile.insert_pdf(page)
-            filePath = os.path.join(docDir, docName + "-page" + str(counter) + ".pdf")
-            newPDFFile.save(filePath)
-            newPDFFile.close()
+        try:
+            for pageNum in range(0, self.getNumPage()):
+                newPDFFile = fitz.open()
+                newPDFFile.insert_pdf(self.doc, pageNum, pageNum)
+                filePath = os.path.join(docDir, docName + "-page" + str(pageNum + 1) + ".pdf")
+                newPDFFile.save(filePath)
+                newPDFFile.close()
+            return True
+        except:
+            return False
 
     def insertPDF(self, pageNum, filename, outputFilename) -> bool:
         """Inserts a PDF file between the pages of another PDF file
