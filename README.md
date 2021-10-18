@@ -1,5 +1,5 @@
 # PDFC
-This is a code base of my first software that i created using Python and PyPDF2 but now it is modified to fully use PyMuPDF instead.
+This is a code base of my first software that i created using Python and PyPDF2 but now it is modified to fully use PyMuPDF instead. Other depends are filetype for checking the file type of images.
 
 You can visit the code base for the original software here [https://github.com/siyabongakonile/PDFC](https://github.com/siyabongakonile/PDFC).
 
