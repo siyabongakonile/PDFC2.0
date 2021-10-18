@@ -121,7 +121,18 @@ class PDF:
         Boolean: 
             True when the pages where successfully swapped and False otherwise
         """
-        pass
+        docDir = os.path.dirname(self.filename)
+        docName = os.path.basename(self.filename)
+        newPDFFilename = os.path.join(docDir, docName + "-swapped.pdf")
+
+        page1 = page1 - 1
+        page2 = page2 - 1
+        if not page1 > page2:
+            page1, page2 = page2, page1
+
+        self.doc.move_page(page2, page1)
+        self.doc.move_page(page1, page2)
+        self.doc.save(newPDFFilename)
 
     def reversePages(self) -> bool:
         """Reverses the whole documents

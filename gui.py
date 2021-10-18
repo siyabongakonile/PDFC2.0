@@ -462,10 +462,13 @@ class GUI:
     def swapPages(self):
         """Triggers the swap action and checks the results. 
         Gives a pop up of the results"""
-        theSwapThread = Thread(target = pc.swapPages,
-                                args = (self.file1.get(),
-                                        self.page1.get(),
-                                        self.page2.get()))
+        doc = pc.PDF(self.file1.get())
+        theSwapThread = Thread(target = doc.swapPages,
+                                args = (
+                                    self.page1.get(),
+                                    self.page2.get()
+                                )
+                        )
         theSwapThread.start()
 
     def revPagesGui(self):
