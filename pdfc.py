@@ -2,7 +2,6 @@ from posixpath import basename
 import tkinter.messagebox
 import fitz
 import os
-import time
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"

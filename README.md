@@ -8,6 +8,7 @@ You can visit the code base for the original software here [https://github.com/s
 
 ## Running the program
 - You need to install PyMuPDF first use this command in the terminal/command prompt `pip install PyMuPDF`.
+- You also need to install filetype using `pip install filetype`.
 - After installing the package you will be able to run the software.
 
 ## What ca you do with the software?

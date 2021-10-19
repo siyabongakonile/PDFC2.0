@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.filedialog import askopenfilename, askdirectory
 import tkinter.messagebox
-import os, traceback, shelve
+import os
 import pdfc as pc
 import time, threading
 from threading import Thread
