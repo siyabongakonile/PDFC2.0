@@ -1,4 +1,5 @@
 # PDFC
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/siyabongakonile/https://github.com/siyabongakonile/PDFC2.0.git)
 
 <img src="https://github.com/siyabongakonile/PDFC2.0/blob/main/img/screenshot" alt="screenshot of PDFC2.0">
 
