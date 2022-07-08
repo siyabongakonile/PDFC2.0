@@ -10,6 +10,7 @@ import filetype
 
 __author__ = "Siyabonga Konile"
 __authorsEmail__ = "siyabongakonile@gmail.com"
+__modifiedDate__ = "17:55 08/07/2022"
 
 # Thread class for the thread counter
 class ThreadCounter(Thread):
