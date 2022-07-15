@@ -22,4 +22,7 @@ The software allows you to work with pages of a PDF file:
 - Create PNG image from a PDF page.
 - Create a PDF file from an image.
 
-The software also allows you to change themes, there are two theme that it supports.
+The software is available in two themes.
+
+## Plans for Upgrade
+The software was built with tkinter and now I am planning on moving it to ttk for a more morden look.
